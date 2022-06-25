@@ -16,11 +16,13 @@ executable haskell-blackjack-pd
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    other-modules: GameFunctions
+    other-modules: GameFunctions, BlackJack
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
     build-depends:    base ^>=4.13.0.0,
-                      random
+                      random, 
+                      containers,
+                      text
     hs-source-dirs:   app, src
     default-language: Haskell2010
