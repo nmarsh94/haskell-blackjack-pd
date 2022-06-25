@@ -1,5 +1,5 @@
 cabal-version:      2.4
-name:               haskell-blackjack-pd
+name:               blackjack
 version:            0.1.0.0
 
 
@@ -12,11 +12,15 @@ extra-source-files:
     CHANGELOG.md
     README.md
 
-executable haskell-blackjack-pd
+data-dir: data
+
+data-files: reglas.txt
+
+executable blackjack
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    other-modules: GameFunctions, BlackJack
+    other-modules: GameFunctions, BlackJack, Paths_blackjack
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:

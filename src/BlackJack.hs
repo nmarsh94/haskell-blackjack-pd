@@ -7,7 +7,7 @@ import qualified Data.Text.IO
 import Data.List
 import System.Random
 import qualified Data.Map
-
+import Paths_blackjack
 
 
 
@@ -38,7 +38,8 @@ menu saldoActual saldoObjetivo = do --tenemos el saldo actual y el saldo objetiv
  command <- getLine
  if map toLower command == "reglas"
   then do 
-   handle <- openFile "rules.txt" ReadMode
+   filepath <- getDataFileName "reglas.txt"
+   handle <- openFile filepath ReadMode 
    contents <- hGetContents handle
    putStrLn contents
    menu saldoActual saldoObjetivo
