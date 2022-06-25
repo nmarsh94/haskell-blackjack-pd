@@ -20,7 +20,6 @@ La banca también juega, pero tiene unas reglas muy definidas que se han de tene
 ##  Ejecución
 
 En la terminal, sobre la carpeta del proyecto, correr el siguiente comando:
-Correr los siguientes comandos en la carpeta raíz del proyecto:
 
 ```
 cabal run blackjack.cabal
