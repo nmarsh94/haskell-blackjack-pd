@@ -4,15 +4,15 @@ import System.Random
 
 
 data Cartas = A 
-              | Two 
-              | Three 
-              | Four 
-              | Five 
-              | Six 
-              | Seven 
-              | Eight 
-              | Nine 
-              | Ten 
+              | Dos 
+              | Tres 
+              | Cuatro 
+              | Cinco 
+              | Seis 
+              | Siete 
+              | Ocho 
+              | Nueve 
+              | Diez 
               | J 
               | Q 
               | K 
@@ -46,7 +46,7 @@ valorDeLaMano (c:cx)
  |otherwise = (fromEnum (c) + 1) : valorDeLaMano cx 
     
 
---Show cards mostrará las cartas como una cadena. 
+--mostrarCartas mostrará las cartas como una cadena. 
 mostrarCartas :: [Cartas] -> String
 mostrarCartas [] = "" 
 mostrarCartas (c:cs) 
@@ -55,9 +55,9 @@ mostrarCartas (c:cs)
 
 
 sumaDeCartas :: [Int] -> Int
-sumaDeCartas cards
- |sum cards < 12 && 1 `elem` cards = sum (cards) + 10 
- |otherwise = sum cards
+sumaDeCartas cartas
+ |sum cartas < 12 && 1 `elem` cartas = sum (cartas) + 10 
+ |otherwise = sum cartas
 
 
 --calcularGanador va a devolver una cadena string. Esto se usa en STAND y en todas las funciones del juego principal main para ver quién gana. 
