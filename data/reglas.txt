@@ -1,29 +1,35 @@
 
 
 
----------------------------------------------------------------------------->>>  REGLAS DEL BLACKJACK  <<<-------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------->>>  REGLAS DEL BLACKJACK  <<<-----------------------------------------------------
+
+Antes de que comience cada juego, primero se le pedirá que ingrese un valor de juego objetivo, ganará el juego en general si 
+llega a su valor objetivo y perderá si llega a cero.
+Recibirás la mitad de esta cantidad antes de empezar a jugar, y podrás elegir qué cantidad apostar cada vez que hayas ganado,
+perdido o empatado una mano contra el crupier.
+Se paga 1.5 veces la apuesta si tienes 21 puntos
+
+Este juego consiste en enfrentarse de forma individual a la banca comparando su mano contra la de la banca o crupier, intentando
+conseguir 21 puntos o el número más cercano posible sin pasarse. Para conseguir dicha puntuación se suman los valores de dos cartas
+que se reparten al inicio, con los de las nuevas cartas que, opcionalmente, se podrán añadir si el jugador pide otra carta. Si las 
+dos cartas iniciales suman 21, se denomina Blackjack, y es la mejor jugada. Cuando un jugador no suma 21 con sus dos cartas podrá 
+pedir cartas para conseguir dicho número o uno cercano, pero si el jugador se pasa de esos 21 puntos pierde, indistintamente de lo 
+que haga la banca. Si se produce un empate, la apuesta no se pierde ni se gana; la apuesta solo se modifica si gana o pierde la mano.
+El jugador elige pedir o plantarse en cada carta extraída. Un crupier debe continuar sacando cartas después de su primera carta hasta 
+que tenga 17 puntos o más, y se detiene. Esto significa que el crupier repartirá cartas automáticamente hasta que tenga 17 puntos o más. 
+Con 22 puntos o más, el crupier pierde. 
+Todas las cartas del 2 al 10 valen sus respectivos puntos. La A vale 1 u 11 puntos. J Q K valen 10 puntos.
+El As cambiará de valor dependiendo de cuantas cartas tengas, cambian de valor de 11 a 1 a medida que sacas mas cartas para evitar que 
+te pases. El valor está determinado por el valor de las cartas que son menores a 12 con el A agregado si se reparte ten esto en cuenta 
+mientras juegas cada juego y para cada mano que tengas.
+
+Un crupier debe continuar sacando cartas después de su primera carta hasta que tenga 17 puntos o más, y se detiene. Esto significa que 
+el crupier repartirá cartas automáticamente
+hasta que tenga 17 puntos o más. Con 22 puntos o más, el crupier pierde. El jugador elige pedir o plantarse en cada carta extraída.
 
 
-Todas las cartas del 2 al 10 valen sus respectivos puntos. La A vale 1 u 11 puntos, a eleccion del jugador. J Q K valen 10 puntos. 
-El crupier elegira automaticamente el valor 1 u 11 puntos a menos que el total sea superior a 21. 
-Si se produce un empate, la apuesta no se pierde ni se gana; digamos que empata un juego, no se modifica el dinero que tiene, la apuesta solo se modifica si gana o pierde la mano.
-Un crupier debe continuar sacando cartas despues de sus dos primeras cartas hasta que tenga 17 puntos o más, y se detiene. Esto significa que el crupier repartira cartas automaticamente
-hasta que tenga 17 puntos o mas. Con 22 puntos o mas, el crupier pierde. El jugador elige pedir o plantarse en cada carta extraida. 
-Se paga 1.5 veces la apuesta si tienes 21 puntos. Si los valores de las cartas del crupier y el jugador son los mismos, incluso en 21, el juego es un empate y no hay dinero que cambie de
-manos. El A puede valer 1 u 11 puntos segun el valor actual de la mano, el valor esta determinado por el valor de las cartas que son menores a 12 con el A agregado si se reparte. 
-Si es cierto, se suma una puntuacion de 10 a la puntuacion tanto del crupier como del jugador. Los jugadores deben tener esto en cuenta para el valor del as, asegurese de no calcular
-el valor incorrecto para el as, ua que podria obtener una puntuacion demasiado baja o pasarse contra el crupier en este caso. El As cambiara de valor dependiendo de cuantas cartas 
-tengas, cambian de valor de 11 a 1 a medida que sacas mas cartas para evitar que te pases, ten esto en cuenta mientras juegas cada juego y para cada mano que tengas 
-
-Antes de que comience cada juego, primero se le pedira que ingrese un valor de juego objetivo, ganara el juego en general si llega a su valor objetivo y perdera si llega a cero.
-Recibiras la mitad de esta cantidad antes de empezar a jugar, y podras elegir que cantidad apostar cada vez que hayas ganado, perdido o empatado una mano contra el crupier.
-Vera que se le da su cantidad de dinero frente a su puntuacion de dinero objetivo al final de cada mano para que pueda seguir su progreso hacia su meta.
-Tienes lo que se necesita para ganar en el blackjack?
-
-La mejor de las suertes!
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+¡La mejor de las suertes!
+----------------------------------------------------------------------------------------------------------------------------------------
 
 
