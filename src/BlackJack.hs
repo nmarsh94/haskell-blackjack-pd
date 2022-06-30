@@ -11,9 +11,9 @@ import Paths_blackjack
 import GameFunctions
 
 
-
 main = do
- putStrLn "\n\n**************************************************************************************************************\nIngrese el saldo objetivo para ganar, ( comienza con la mitad de este saldo, objetivo de saldo mínimo de 20 ): \n" 
+ putStrLn "\n\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<          BLACKJACK 21         >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"  
+ putStrLn "\n\n**************************************************************************************************************\nIngrese el saldo objetivo para ganar, ( comienza con la mitad de éste saldo. Objetivo de saldo mínimo de 20 ): \n" 
  saldoObjetivo <- getLine
  if (read saldoObjetivo:: Double) > 19 
   then 
@@ -49,7 +49,7 @@ menu saldoActual saldoObjetivo = do --tenemos el saldo actual y el saldo objetiv
     putStrLn "\nComenzando el juego...\n"
     generadorCrupier <- newStdGen
     generadorJugador <- newStdGen
-    game (repartirCartasCrupier generadorCrupier 0) (cartasInicialesJugador generadorJugador 2) saldoActual saldoObjetivo 0 
+    game (primeraCartaCrupier generadorCrupier) (cartasInicialesJugador generadorJugador 2) saldoActual saldoObjetivo 0 
    else if map toLower command == "salir" --Si se escribe el comando exit, sale del juego; de lo contrario, puede volver a llamar a un menú
     then 
      putStrLn "\nSaliendo del juego..."
@@ -75,93 +75,93 @@ game cartasCrupier cartasJugador saldoActual saldoObjetivo apuesta = do
      else do 
       putStrLn "\n<<Apuesta aceptada!>> \n"
       game cartasCrupier cartasJugador saldoActual saldoObjetivo (read cantidadAApostar::Double)
-   else if (sumaDeCartas $ valorDeLaMano cartasCrupier) > 21 
-    then do 
-     putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ "\n"
-     putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: "++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++  "\n"
-     putStrLn "El crupier se pása de 21 puntos, tu ganas!"
-     generadorCrupier <- newStdGen
-     generadorJugador <- newStdGen
-     game (repartirCartasCrupier generadorCrupier 0) (cartasInicialesJugador generadorJugador 2) (saldoActual + apuesta) saldoObjetivo 0
-    else if (sumaDeCartas $ valorDeLaMano cartasJugador) > 21 
+   else if (sumaDeCartas $ valorDeLaMano cartasJugador) == 21 
      then do
-      putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ " \n"
+      putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ "\n"
       putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
-      putStrLn "Te pasas de 21 puntos, has perdido"
-      if (saldoActual - apuesta) < 1
-       then
-        putStrLn "\n<<<<Perdiste todo tu dinero, se acabó el juego>>>>"
-       else do 
-        generadorCrupier <- newStdGen
-        generadorJugador <- newStdGen
-        game (repartirCartasCrupier generadorCrupier 0) (cartasInicialesJugador generadorJugador 2) (saldoActual - apuesta) saldoObjetivo 0
-     else if (sumaDeCartas $ valorDeLaMano cartasJugador) == 21 
-      then do
-       putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ "\n"
-       putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
-       putStrLn "Tienes BlackJack, ganas 1.5 veces el monto de tu apuesta!"
-       generadorCrupier <- newStdGen
-       generadorJugador <- newStdGen
-       game (repartirCartasCrupier generadorCrupier 0) (cartasInicialesJugador generadorJugador 2) (saldoActual + (apuesta / 2) + apuesta) saldoObjetivo 0
-      else if (sumaDeCartas $ valorDeLaMano cartasCrupier) == 21 
+      putStrLn "Tienes BlackJack, ganas 1.5 veces el monto de tu apuesta!"
+      generadorCrupier <- newStdGen
+      generadorJugador <- newStdGen
+      game (primeraCartaCrupier generadorCrupier) (cartasInicialesJugador generadorJugador 2) (saldoActual + (apuesta / 2) + apuesta) saldoObjetivo 0  
+     else if (sumaDeCartas $ valorDeLaMano cartasCrupier) == 21 
        then do
-         putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ " \n"
-         putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
-         putStrLn "El crupier tiene BlackJack, has perdido!"
-         if (saldoActual - apuesta) < 1
-          then
-           putStrLn "\n<<<<Perdiste todo tu dinero, se acabó el juego>>>>"
-          else do 
-           generadorCrupier <- newStdGen
-           generadorJugador <- newStdGen
-           game (repartirCartasCrupier generadorCrupier 0) (cartasInicialesJugador generadorJugador 2) (saldoActual - apuesta) saldoObjetivo 0
-      else if (sumaDeCartas $ valorDeLaMano cartasJugador) == (sumaDeCartas $ valorDeLaMano cartasCrupier) 
-       then do
-        putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ "\n"
+        putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ " \n"
         putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
-        putStrLn "Empataste, no ganas ni pierdes dinero esta vez!"
-        generadorCrupier <- newStdGen
-        generadorJugador <- newStdGen
-        game (repartirCartasCrupier generadorCrupier 0) (cartasInicialesJugador generadorJugador 2) saldoActual saldoObjetivo 0
-       else do 
-        putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ "\n"
-        putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
-        putStrLn "Quieres pedir una carta o plantarte? (Escribe \"pedir\" o \"plantarme\"): \n"
-        command <- getLine
-        if map toLower command == "pedir" 
+        putStrLn "El crupier tiene BlackJack, has perdido!"
+        if (saldoActual - apuesta) < 1
+         then
+          putStrLn "\n<<<<Perdiste todo tu dinero, se acabó el juego>>>>"
+        else do 
+         generadorCrupier <- newStdGen
+         generadorJugador <- newStdGen
+         game (primeraCartaCrupier generadorCrupier) (cartasInicialesJugador generadorJugador 2) (saldoActual - apuesta) saldoObjetivo 0
+       else if (sumaDeCartas $ valorDeLaMano cartasCrupier) > 21 
+        then do 
+         putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ "\n"
+         putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: "++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++  "\n"
+         putStrLn "El crupier se pása de 21 puntos, tu ganas!"
+         generadorCrupier <- newStdGen
+         generadorJugador <- newStdGen
+         game (primeraCartaCrupier generadorCrupier) (cartasInicialesJugador generadorJugador 2) (saldoActual + apuesta) saldoObjetivo 0  
+        else if (sumaDeCartas $ valorDeLaMano cartasJugador) > 21 
          then do
-          generadorJugador <- newStdGen
-          let nuevaCarta = repartirCartaJugador generadorJugador
-          let cartasActualesJugador = cartasJugador ++ nuevaCarta
-          game cartasCrupier cartasActualesJugador saldoActual saldoObjetivo apuesta
-         else if map toLower command == "plantarme"
-          then if (calcularGanador cartasCrupier cartasJugador) == "ganaste" 
-           then do 
-            putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ "\n"
-            putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
-            putStrLn "Tienes mas puntos, has ganado!"
+          putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ " \n"
+          putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
+          putStrLn "Te pasas de 21 puntos, has perdido"
+          if (saldoActual - apuesta) < 1
+           then
+            putStrLn "\n<<<<Perdiste todo tu dinero, se acabó el juego>>>>"
+           else do 
             generadorCrupier <- newStdGen
             generadorJugador <- newStdGen
-            game (repartirCartasCrupier generadorCrupier 0) (cartasInicialesJugador generadorJugador 2) (saldoActual + apuesta) saldoObjetivo 0
-           else if (calcularGanador cartasCrupier cartasJugador) == "perdiste" 
+            game (primeraCartaCrupier generadorCrupier) (cartasInicialesJugador generadorJugador 2) (saldoActual - apuesta) saldoObjetivo 0
+         else if (((sumaDeCartas $ valorDeLaMano cartasJugador) == (sumaDeCartas $ valorDeLaMano cartasCrupier)) && (length cartasCrupier) > 1)
+          then do
+           putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ "\n"
+           putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
+           putStrLn "Empataste, no ganas ni pierdes dinero esta vez!"
+           generadorCrupier <- newStdGen
+           generadorJugador <- newStdGen
+           game (primeraCartaCrupier generadorCrupier) (cartasInicialesJugador generadorJugador 2) saldoActual saldoObjetivo 0
+          else if (((sumaDeCartas $ valorDeLaMano cartasJugador) > (sumaDeCartas $ valorDeLaMano cartasCrupier)) && (length cartasCrupier) > 1)
+           then do
+            putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ "\n"
+            putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
+            putStrLn "Tienes mas puntos, tu ganas!"
+            generadorCrupier <- newStdGen
+            generadorJugador <- newStdGen
+            game (primeraCartaCrupier generadorCrupier) (cartasInicialesJugador generadorJugador 2) (saldoActual + apuesta) saldoObjetivo 0  
+           else if (((sumaDeCartas $ valorDeLaMano cartasJugador) < (sumaDeCartas $ valorDeLaMano cartasCrupier)) && (length cartasCrupier) > 1)
             then do
              putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ "\n"
              putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
-             putStrLn "El crupier tiene mas puntos, has perdido!"
-             if (saldoActual - apuesta) < 0
-              then 
-               putStrLn "Perdiste todo tu dinero, se acabó el juego"
+             putStrLn "Tienes menos puntos, has perdido"
+             if (saldoActual - apuesta) < 1
+              then
+               putStrLn "\n<<<<Perdiste todo tu dinero, se acabó el juego>>>>"
               else do 
                generadorCrupier <- newStdGen
                generadorJugador <- newStdGen
-               game (repartirCartasCrupier generadorCrupier 0) (cartasInicialesJugador generadorJugador 2) (saldoActual - apuesta) saldoObjetivo 0
-            else do
+               game (primeraCartaCrupier generadorCrupier) (cartasInicialesJugador generadorJugador 2) (saldoActual - apuesta) saldoObjetivo 0
+            else do 
              putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ "\n"
              putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
-             putStrLn "Empataste, no ganas ni pierdes dinero esta vez!!"
-             generadorCrupier <- newStdGen
-             generadorJugador <- newStdGen
-             game (repartirCartasCrupier generadorCrupier 0) (cartasInicialesJugador generadorJugador 2) saldoActual saldoObjetivo 0
-          else do
-           putStrLn "Quieres pedir una carta o plantarte? (Escribe \"pedir\" o \"plantarme\"): \n"
-           game cartasCrupier cartasJugador saldoActual saldoObjetivo apuesta
+             putStrLn "Quieres pedir una carta o plantarte? (Escribe \"pedir\" o \"plantarme\"): \n"
+             command <- getLine
+             if map toLower command == "pedir" 
+              then do
+               generadorJugador <- newStdGen
+               let nuevaCarta = repartirCartaJugador generadorJugador
+               let cartasActualesJugador = cartasJugador ++ nuevaCarta
+               game cartasCrupier cartasActualesJugador saldoActual saldoObjetivo apuesta
+              else if map toLower command == "plantarme"
+               then do
+                generadorCrupier <- newStdGen
+                let primeraCarta = sumaDeCartas $ valorDeLaMano $ primeraCartaCrupier generadorCrupier
+                let cartasC = repartirCartasCrupier generadorCrupier primeraCarta
+                let cartasActualesCrupier = cartasCrupier ++ cartasC
+                game cartasActualesCrupier cartasJugador saldoActual saldoObjetivo apuesta 
+               else do 
+                putStrLn "--------------------------------------------------------------------------------------------------------------\nBienvenido a BlackJack, escriba \"Reglas\" o \"Jugar\" para comenzar, \"Salir\" para salir del juego actual: \n\n"
+                menu saldoActual saldoObjetivo
+              

@@ -23,7 +23,7 @@ repartirCartasCrupier :: StdGen -> Int -> [Cartas]
 repartirCartasCrupier gen total 
  | total < 11 && randomNumber == 1 = toEnum (randomNumber - 1) : repartirCartasCrupier newGen (total + randomNumber + 10) 
  | total < 17 = toEnum (randomNumber - 1) : repartirCartasCrupier newGen (total + randomNumber) 
- | otherwise = [] --De lo contrario, pone una lista vacía que le da la lista de cartas. Se detiene en la lista vacía. 
+ | otherwise = [] 
  where (randomNumber,newGen) = randomR(1,13) gen :: (Int,StdGen) 
 
 cartasInicialesJugador :: StdGen -> Int -> [Cartas] 
@@ -32,13 +32,17 @@ cartasInicialesJugador gen stop
  | otherwise = []
  where (randomNumber,newGen) = randomR(1,13) gen :: (Int,StdGen)
 
---cuando elijan hit esto se llamará 
+
 repartirCartaJugador :: StdGen -> [Cartas] 
 repartirCartaJugador gen = [toEnum (randomNumber -1)]
  where (randomNumber,newGen) = randomR(1,13) gen :: (Int,StdGen)
 
+primeraCartaCrupier :: StdGen -> [Cartas] 
+primeraCartaCrupier gen = [toEnum (randomNumber -1)]
+ where (randomNumber,newGen) = randomR(1,13) gen :: (Int,StdGen)
 
---mostrar el valor de las cartas. Te da las cartas y te devuelve una lista de ints 
+
+
 valorDeLaMano :: [Cartas] -> [Int]
 valorDeLaMano [] = [] 
 valorDeLaMano (c:cx) 
@@ -46,7 +50,7 @@ valorDeLaMano (c:cx)
  |otherwise = (fromEnum (c) + 1) : valorDeLaMano cx 
     
 
---mostrarCartas mostrará las cartas como una cadena. 
+
 mostrarCartas :: [Cartas] -> String
 mostrarCartas [] = "" 
 mostrarCartas (c:cs) 
