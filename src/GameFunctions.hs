@@ -62,11 +62,3 @@ sumaDeCartas :: [Int] -> Int
 sumaDeCartas cartas
  |sum cartas < 12 && 1 `elem` cartas = sum (cartas) + 10 
  |otherwise = sum cartas
-
-
---calcularGanador va a devolver una cadena string. Esto se usa en STAND y en todas las funciones del juego principal main para ver quién gana. 
-calcularGanador :: [Cartas] -> [Cartas] -> String
-calcularGanador cartasCrupier cartasJugador 
- |sumaDeCartas (valorDeLaMano cartasCrupier) == sumaDeCartas (valorDeLaMano cartasJugador) = "empate"
- |sumaDeCartas (valorDeLaMano cartasCrupier) > sumaDeCartas (valorDeLaMano cartasJugador) = "perdiste"
- |sumaDeCartas (valorDeLaMano cartasCrupier) < sumaDeCartas (valorDeLaMano cartasJugador) = "ganaste"
