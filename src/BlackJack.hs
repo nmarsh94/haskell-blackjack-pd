@@ -13,7 +13,8 @@ import GameFunctions
 
 main = do
  putStrLn "\n\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<          BLACKJACK 21         >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"  
- putStrLn "\n\n**************************************************************************************************************\nIngrese el saldo objetivo para ganar, ( comienza con la mitad de éste saldo. Objetivo de saldo mínimo de 20 ): \n" 
+ putStrLn "\n\n**************************************************************************************************************\n"
+ putStrLn "Ingrese el saldo objetivo para ganar, ( comienza con la mitad de éste saldo. Objetivo de saldo mínimo de 20 ): \n"
  saldoObjetivo <- getLine
  if (read saldoObjetivo:: Double) > 19 
   then 
@@ -23,7 +24,7 @@ main = do
    main 
  putStrLn "\nFin del juego, ¿quieres volver a jugar? escriba \"Sí\" o \"No\"\n" 
  command <- getLine
- if map toLower command == "si" -- si doy sí, simplemente volvemos a al main de nuevo. 
+ if map toLower command == "si" 
   then do 
    main
   else if map toLower command == "no" 
@@ -34,8 +35,9 @@ main = do
 
 
 menu :: Double -> Double -> IO () 
-menu saldoActual saldoObjetivo = do --tenemos el saldo actual y el saldo objetivo pasado aquí
- putStrLn "\n\n--------------------------------------------------------------------------------------------------------------\nBienvenido a BlackJack, escriba \"Reglas\" o \"Jugar\" para comenzar, \"Salir\" para salir del juego actual: \n"  
+menu saldoActual saldoObjetivo = do 
+ putStrLn "\n\n--------------------------------------------------------------------------------------------------------------\n"
+ putStrLn "Bienvenido a BlackJack, escriba \"Reglas\" o \"Jugar\" para comenzar, \"Salir\" para salir del juego actual: \n"  
  command <- getLine
  if map toLower command == "reglas"
   then do 
@@ -50,11 +52,12 @@ menu saldoActual saldoObjetivo = do --tenemos el saldo actual y el saldo objetiv
     generadorCrupier <- newStdGen
     generadorJugador <- newStdGen
     game (primeraCartaCrupier generadorCrupier) (cartasInicialesJugador generadorJugador 2) saldoActual saldoObjetivo 0 
-   else if map toLower command == "salir" --Si se escribe el comando exit, sale del juego; de lo contrario, puede volver a llamar a un menú
+   else if map toLower command == "salir" 
     then 
      putStrLn "\nSaliendo del juego..."
     else do 
-     putStrLn "--------------------------------------------------------------------------------------------------------------\nBienvenido a BlackJack, escriba \"Reglas\" o \"Jugar\" para comenzar, \"Salir\" para salir del juego actual: \n\n"
+     putStrLn "--------------------------------------------------------------------------------------------------------------\n"
+     putStrLn "Bienvenido a BlackJack, escriba \"Reglas\" o \"Jugar\" para comenzar, \"Salir\" para salir del juego actual: \n\n"
      menu saldoActual saldoObjetivo
 
 
@@ -162,6 +165,7 @@ game cartasCrupier cartasJugador saldoActual saldoObjetivo apuesta = do
                 let cartasActualesCrupier = cartasCrupier ++ cartasC
                 game cartasActualesCrupier cartasJugador saldoActual saldoObjetivo apuesta 
                else do 
-                putStrLn "--------------------------------------------------------------------------------------------------------------\nBienvenido a BlackJack, escriba \"Reglas\" o \"Jugar\" para comenzar, \"Salir\" para salir del juego actual: \n\n"
+                putStrLn "--------------------------------------------------------------------------------------------------------------\n"
+                putStrLn "Bienvenido a BlackJack, escriba \"Reglas\" o \"Jugar\" para comenzar, \"Salir\" para salir del juego actual: \n\n"
                 menu saldoActual saldoObjetivo
               
