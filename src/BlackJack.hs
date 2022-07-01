@@ -9,6 +9,7 @@ import System.Random
 import qualified Data.Map
 import Paths_blackjack
 import GameFunctions
+import System.Exit (exitSuccess)
 
 
 main = do
@@ -29,9 +30,9 @@ main = do
    main
   else if map toLower command == "no" 
    then 
-    putStrLn "\nGracias por jugar BlackJack, adiós "
+    exitSuccess
    else 
-    putStrLn "\nNo entendí tu elección, adiós."
+    exitSuccess
 
 
 menu :: Double -> Double -> IO () 
@@ -78,7 +79,7 @@ game cartasCrupier cartasJugador saldoActual saldoObjetivo apuesta = do
      else do 
       putStrLn "\n<<Apuesta aceptada!>> \n"
       game cartasCrupier cartasJugador saldoActual saldoObjetivo (read cantidadAApostar::Double)
-   else if (sumaDeCartas $ valorDeLaMano cartasJugador) == 21 
+   else if (sumaDeCartas $ valorDeLaMano cartasJugador) == 21 && (length cartasJugador) == 2
      then do
       putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ "\n"
       putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
@@ -86,7 +87,7 @@ game cartasCrupier cartasJugador saldoActual saldoObjetivo apuesta = do
       generadorCrupier <- newStdGen
       generadorJugador <- newStdGen
       game (primeraCartaCrupier generadorCrupier) (cartasInicialesJugador generadorJugador 2) (saldoActual + (apuesta / 2) + apuesta) saldoObjetivo 0  
-     else if (sumaDeCartas $ valorDeLaMano cartasCrupier) == 21 
+     else if (sumaDeCartas $ valorDeLaMano cartasCrupier) == 21 && (length cartasCrupier) == 2
        then do
         putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ " \n"
         putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
@@ -149,15 +150,15 @@ game cartasCrupier cartasJugador saldoActual saldoObjetivo apuesta = do
             else do 
              putStrLn $ "\n>> Cartas del crupier: " ++ mostrarCartas cartasCrupier ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasCrupier) ++ "\n"
              putStrLn $ ">> Tus cartas: " ++ mostrarCartas cartasJugador ++ "      -> Total: " ++ show (sumaDeCartas $ valorDeLaMano cartasJugador) ++ "\n"
-             putStrLn "Quieres pedir una carta o plantarte? (Escribe \"pedir\" o \"plantarme\"): \n"
+             putStrLn "Quieres pedir una carta o plantarte? (Escribe \"p\" para pedir una carta, o \"pl\" para plantarte): \n"
              command <- getLine
-             if map toLower command == "pedir" 
+             if map toLower command == "p" 
               then do
                generadorJugador <- newStdGen
                let nuevaCarta = repartirCartaJugador generadorJugador
                let cartasActualesJugador = cartasJugador ++ nuevaCarta
                game cartasCrupier cartasActualesJugador saldoActual saldoObjetivo apuesta
-              else if map toLower command == "plantarme"
+              else if map toLower command == "pl"
                then do
                 generadorCrupier <- newStdGen
                 let primeraCarta = sumaDeCartas $ valorDeLaMano $ primeraCartaCrupier generadorCrupier
